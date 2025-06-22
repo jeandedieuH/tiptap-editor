@@ -174,7 +174,11 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function RichTextEditor() {
+export interface RichTextEditorProps {
+  initialContent?: string;
+}
+
+export function RichTextEditor({ initialContent }: RichTextEditorProps) {
   const isMobile = useMobile();
   const windowSize = useWindowSize();
   const [mobileView, setMobileView] = React.useState<
@@ -187,6 +191,7 @@ export function RichTextEditor() {
   }, []);
 
   const editor = useEditor({
+    content: initialContent,
     immediatelyRender: false,
     editorProps: {
       attributes: {
@@ -218,7 +223,6 @@ export function RichTextEditor() {
       TrailingNode,
       Link.configure({ openOnClick: false }),
     ],
-    content: "<p>Start typing...</p>",
   });
 
   React.useEffect(() => {
